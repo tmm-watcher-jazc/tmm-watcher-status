@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TMM Watcher — Status</title>
+<style>
+  :root {
+    --bg: #0d1117; --fg: #c9d1d9; --muted: #8b949e;
+    --ok: #2ea043; --bad: #d65f5f; --warn: #d4a72c; --unknown: #6e7681;
+    --card: #161b22; --border: #30363d;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 24px; font: 14px/1.45 -apple-system, system-ui, "Segoe UI", Roboto, sans-serif;
+         background: var(--bg); color: var(--fg); }
+  h1 { margin: 0 0 4px; font-size: 18px; font-weight: 600; }
+  .sub { color: var(--muted); font-size: 12px; margin-bottom: 24px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+          gap: 12px; max-width: 920px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 6px;
+          padding: 12px 14px; }
+  .card .label { color: var(--muted); font-size: 11px; text-transform: uppercase;
+                 letter-spacing: 0.04em; margin-bottom: 4px; }
+  .card .value { font-size: 16px; font-weight: 500; }
+  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+         margin-right: 6px; vertical-align: middle; }
+  .dot.ok      { background: var(--ok); }
+  .dot.bad     { background: var(--bad); }
+  .dot.warn    { background: var(--warn); }
+  .dot.unknown { background: var(--unknown); }
+  footer { color: var(--muted); font-size: 11px; margin-top: 24px; max-width: 920px; }
+  a { color: #58a6ff; }
+  code { background: #0d1117; padding: 1px 5px; border-radius: 3px; }
+</style>
+</head>
+<body>
+<h1>TMM Watcher — public status</h1>
+<div class="sub">
+  Read-only status of the trading watcher. No P&amp;L, no positions, no prices.
+  Updates every ~5 minutes. <span id="age"></span>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<footer>
+  Source: <a href="https://github.com/celociajohn-coder/tmm-watcher-status">tmm-watcher-status</a> ·
+  Bot source is private. This page reflects only operational health.
+</footer>
+
+<script>
+function dot(state) {
+  // state: true (ok) | false (bad) | null (unknown)
+  if (state === true) return '<span class="dot ok"></span>';
+  if (state === false) return '<span class="dot bad"></span>';
+  return '<span class="dot unknown"></span>';
+}
+
+function fmtBool(state) {
+  if (state === true) return 'OK';
+  if (state === false) return 'DOWN';
+  return 'unknown';
+}
+
+function fmtAgeMs(ms) {
+  if (!isFinite(ms) || ms < 0) return '';
+  const sec = Math.round(ms / 1000);
+  if (sec < 90) return sec + 's';
+  const min = Math.round(sec / 60);
+  if (min < 90) return min + 'm';
+  const hr = (min / 60).toFixed(1);
+  return hr + 'h';
+}
+
+function render(s, fetchedAt) {
+  const cards = [];
+  const sess = s.session_label || 'unknown';
+  cards.push({label: 'Session', html: sess.replace(/_/g, ' ')});
+  cards.push({label: 'Bot process',
+              html: dot(s.bot_up) + (s.bot_up ? 'running' : 'down')});
+  cards.push({label: 'Paused',
+              html: dot(s.paused === false) + (s.paused ? 'PAUSED' : 'no')});
+  cards.push({label: 'Kill switch',
+              html: dot(s.kill_switch === false) +
+                    (s.kill_switch ? 'TRIPPED' : 'armed')});
+  cards.push({label: 'Alerts fired today',
+              html: String(s.alerts_fired_today ?? '?')});
+  cards.push({label: 'CDP connection', html: dot(s.cdp_ok) + fmtBool(s.cdp_ok)});
+  cards.push({label: 'TMA read', html: dot(s.tma_ok) + fmtBool(s.tma_ok)});
+  cards.push({label: '1m bar feed', html: dot(s.bar_feed_ok) + fmtBool(s.bar_feed_ok)});
+  cards.push({label: 'Chart frame', html: dot(s.chart_frame_ok) + fmtBool(s.chart_frame_ok)});
+  cards.push({label: 'News cache', html: dot(s.news_cache_ok) + fmtBool(s.news_cache_ok)});
+
+  const grid = document.getElementById('grid');
+  grid.innerHTML = cards.map(c =>
+    '<div class="card"><div class="label">' + c.label +
+    '</div><div class="value">' + c.html + '</div></div>'
+  ).join('');
+
+  const ageEl = document.getElementById('age');
+  if (s.last_status_change_utc) {
+    const t = new Date(s.last_status_change_utc).getTime();
+    const ageStr = fmtAgeMs(fetchedAt - t);
+    ageEl.textContent = 'Last change: ' + ageStr + ' ago.';
+  } else {
+    ageEl.textContent = '';
+  }
+}
+
+async function refresh() {
+  try {
+    // cache-bust so we always read the latest commit's blob
+    const r = await fetch('status.json?t=' + Date.now(), {cache: 'no-store'});
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const s = await r.json();
+    render(s, Date.now());
+  } catch (e) {
+    document.getElementById('grid').innerHTML =
+      '<div class="card"><div class="label">Error</div><div class="value">' +
+      'could not load status.json (' + e.message + ')</div></div>';
+  }
+}
+
+refresh();
+setInterval(refresh, 30 * 1000);   // poll every 30s
+</script>
+</body>
+</html>
