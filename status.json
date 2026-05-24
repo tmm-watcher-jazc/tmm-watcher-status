@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
-  "bot_up": false,
-  "session_label": "unknown",
+  "bot_up": true,
+  "session_label": "weekend",
   "paused": false,
   "kill_switch": false,
   "kill_reason": null,
   "alerts_fired_today": 0,
-  "cdp_ok": null,
+  "cdp_ok": false,
   "tma_ok": null,
   "bar_feed_ok": null,
   "chart_frame_ok": null,
   "news_cache_ok": null,
-  "last_status_change_utc": null
+  "last_status_change_utc": "2026-05-24T19:48:34Z"
 }
