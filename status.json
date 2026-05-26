@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "bot_up": true,
-  "session_label": "weekend",
+  "session_label": "post_close",
   "paused": false,
   "kill_switch": false,
   "kill_reason": null,
@@ -11,5 +11,5 @@
   "bar_feed_ok": null,
   "chart_frame_ok": null,
   "news_cache_ok": null,
-  "last_status_change_utc": "2026-05-24T19:48:34Z"
+  "last_status_change_utc": "2026-05-26T02:44:31Z"
 }
