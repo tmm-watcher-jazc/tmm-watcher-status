@@ -8,8 +8,8 @@
   "alerts_fired_today": 1,
   "cdp_ok": true,
   "tma_ok": true,
-  "bar_feed_ok": false,
+  "bar_feed_ok": true,
   "chart_frame_ok": true,
   "news_cache_ok": null,
-  "last_status_change_utc": "2026-06-03T00:36:14Z"
+  "last_status_change_utc": "2026-06-03T00:42:02Z"
 }
