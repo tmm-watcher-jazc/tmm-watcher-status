@@ -6,10 +6,10 @@
   "kill_switch": false,
   "kill_reason": null,
   "alerts_fired_today": 0,
-  "cdp_ok": false,
-  "tma_ok": false,
-  "bar_feed_ok": false,
+  "cdp_ok": true,
+  "tma_ok": true,
+  "bar_feed_ok": true,
   "chart_frame_ok": true,
   "news_cache_ok": true,
-  "last_status_change_utc": "2026-06-04T14:55:24Z"
+  "last_status_change_utc": "2026-06-04T15:01:02Z"
 }
