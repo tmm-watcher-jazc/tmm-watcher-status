@@ -10,6 +10,6 @@
   "tma_ok": true,
   "bar_feed_ok": true,
   "chart_frame_ok": true,
-  "news_cache_ok": true,
-  "last_status_change_utc": "2026-06-04T20:00:02Z"
+  "news_cache_ok": null,
+  "last_status_change_utc": "2026-06-05T00:39:06Z"
 }
