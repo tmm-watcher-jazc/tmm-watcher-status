@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "bot_up": true,
-  "session_label": "in_session",
+  "session_label": "post_close",
   "paused": false,
   "kill_switch": false,
   "kill_reason": null,
@@ -10,6 +10,6 @@
   "tma_ok": true,
   "bar_feed_ok": true,
   "chart_frame_ok": true,
-  "news_cache_ok": true,
-  "last_status_change_utc": "2026-06-09T13:30:02Z"
+  "news_cache_ok": null,
+  "last_status_change_utc": "2026-06-10T02:16:07Z"
 }
