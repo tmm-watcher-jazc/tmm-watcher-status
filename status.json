@@ -7,9 +7,9 @@
   "kill_reason": null,
   "alerts_fired_today": 0,
   "cdp_ok": true,
-  "tma_ok": null,
-  "bar_feed_ok": false,
+  "tma_ok": true,
+  "bar_feed_ok": true,
   "chart_frame_ok": true,
   "news_cache_ok": null,
-  "last_status_change_utc": "2026-06-23T13:21:27Z"
+  "last_status_change_utc": "2026-06-23T13:27:02Z"
 }
