@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
   "bot_up": true,
-  "session_label": "in_session",
+  "session_label": "pre_open",
   "paused": false,
   "kill_switch": false,
   "kill_reason": null,
-  "alerts_fired_today": 1,
+  "alerts_fired_today": 0,
   "cdp_ok": true,
   "tma_ok": true,
   "bar_feed_ok": true,
   "chart_frame_ok": true,
-  "news_cache_ok": true,
-  "last_status_change_utc": "2026-06-24T14:38:04Z"
+  "news_cache_ok": null,
+  "last_status_change_utc": "2026-06-25T13:09:11Z"
 }
