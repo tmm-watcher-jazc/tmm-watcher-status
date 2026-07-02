@@ -5,11 +5,11 @@
   "paused": false,
   "kill_switch": false,
   "kill_reason": null,
-  "alerts_fired_today": 3,
+  "alerts_fired_today": 0,
   "cdp_ok": true,
   "tma_ok": true,
   "bar_feed_ok": true,
   "chart_frame_ok": true,
   "news_cache_ok": true,
-  "last_status_change_utc": "2026-07-01T15:08:02Z"
+  "last_status_change_utc": "2026-07-02T13:54:09Z"
 }
