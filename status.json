@@ -3,13 +3,13 @@
   "bot_up": true,
   "session_label": "in_session",
   "paused": false,
-  "kill_switch": false,
-  "kill_reason": null,
+  "kill_switch": true,
+  "kill_reason": "Daily loss limit reached: -60.0 pts (limit -60)",
   "alerts_fired_today": 4,
   "cdp_ok": true,
   "tma_ok": true,
   "bar_feed_ok": true,
   "chart_frame_ok": true,
   "news_cache_ok": true,
-  "last_status_change_utc": "2026-07-07T14:55:02Z"
+  "last_status_change_utc": "2026-07-07T15:00:04Z"
 }
